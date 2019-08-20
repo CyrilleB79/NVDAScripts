@@ -36,7 +36,7 @@ Of course, when [#9528][1] is fixed in NVDA (or in Windows), this script is usel
 
 ### globalPlugins/windowutil.py
 
-This debug script allows to get various information on the current navigator object or associated window. It is an improvement of NVDA developer guide example 3
+This debug script allows to get various information on the current navigator object or associated window. It is an improvement of [NVDA developer guide][2] example 3
 
 Usage:
 
@@ -46,7 +46,11 @@ Usage:
 The list of supported properties is the following:
 name, role, state, value, windowClassName, windowControlID, windowHandle, pythonClass, pythonClassMRO
 
-If youhave installed Speech history review and copying  sélectionné addon from Tyler Spivey and James Scholes, you may use it to copy and paste the announced property to review it;
+If you have installed [Speech history review and copying][3]  addon from Tyler Spivey and James Scholes, you may use it to copy and paste the announced property to review it;
 review via copy/paste is especially useful for pythonClassMRO since it may be long.
 
 [1]: https://github.com/nvaccess/nvda/issues/9528
+
+[2]: https://www.nvaccess.org/files/nvda/documentation/developerGuide.html
+
+[3]: https://addons.nvda-project.org/addons/speech_history.en.html

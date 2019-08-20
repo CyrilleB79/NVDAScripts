@@ -3,7 +3,7 @@
 #Copyright (C) 2019 Cyrille Bougot
 #This file is covered by the GNU General Public License.
 
-#This debug script allows to get various information on the current navigator object or associated window. It is an improvement of NVDA developer guide example 3
+#This debug script allows to get various information on the current navigator object or associated window. It is an improvement of NVDA developer guide [https://www.nvaccess.org/files/nvda/documentation/developerGuide.html] example 3
 #To use it, put it in the globalPlugins folder.
 
 #Usage:
@@ -11,7 +11,7 @@
 #NVDA+Shift+LeftArrow or NVDA+Shift+RightArrow: select previous or next property and announce it for the navigator object.
 #The list of supported properties is the following:
 #name, role, state, value, windowClassName, windowControlID, windowHandle, pythonClass, pythonClassMRO
-#If youhave installed Speech history review and copying  sélectionné addon from Tyler Spivey and James Scholes, you may use it to copy and paste the announced property to review it;
+#If you have installed Speech history review and copying [https://addons.nvda-project.org/addons/speech_history.en.html] addon from Tyler Spivey and James Scholes, you may use it to copy and paste the announced property to review it;
 #review via copy/paste is especially useful for pythonClassMRO since it may be long.
 
 
