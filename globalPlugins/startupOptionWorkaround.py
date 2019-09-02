@@ -15,12 +15,20 @@ import config
 import globalVars
 import core
 import wx
+from logHandler import log
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
+		#Call testForExitRequired at first core cycle
+		core.callLater(0,testForExitRequired)
+		
+def testForExitRequired():
+	"""This function tests if NVDA should never have been started automatically after session logon.
+	If this is the case, it logs an info message and exits.
+	"""
 		if ((not config.getStartAfterLogon())
 		and globalVars.appArgs.easeOfAccess == True):
-			core.callLater(0,wx.GetApp().ExitMainLoop)
-	
+			log.info('Startup option workaround: NVDA was not set to start automatically after logon so it will shut down immediately.')
+			wx.GetApp().ExitMainLoop()
