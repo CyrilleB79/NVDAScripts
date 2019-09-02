@@ -28,12 +28,6 @@ To activate or de-activate beep error feature, press NVDA+control+alt+B
 This script allows to enable the stack trace logging of the speech function when pressing NVDA+control+alt+S. You may modify this file to pathc another function.
 See all instructions in the file for details on usage.
 
-### globalPlugins/startupOptionWorkaround.py
-
-With Windows 10 1903 update, NVDA may start after logon even when this is disabled in General settings panel (cf. [#9528][1]).
-This script does not fix the issue. However, as a work-around, it unloads NVDA just after startup in the case it should not have started up at all.
-Of course, when [#9528][1] is fixed in NVDA (or in Windows), this script is useless and should be removed.
-
 ### globalPlugins/windowutil.py
 
 This debug script allows to get various information on the current navigator object or associated window. It is an improvement of [NVDA developer guide][2] example 3
@@ -49,8 +43,21 @@ name, role, state, value, windowClassName, windowControlID, windowHandle, python
 If you have installed [Speech history review and copying][3]  addon from Tyler Spivey and James Scholes, you may use it to copy and paste the announced property to review it;
 review via copy/paste is especially useful for pythonClassMRO since it may be long.
 
+## Removed scripts
+
+### globalPlugins/startupOptionWorkaround.py
+
+This script has been package as an add-on: [Startup option workaround add-on][4]
+
+With Windows 10 1903 update, NVDA may start after logon even when this is disabled in General settings panel (cf. [#9528][1]).
+This script does not fix the issue. However, as a work-around, it unloads NVDA just after startup in the case it should not have started up at all.
+Of course, when [#9528][1] is fixed in NVDA (or in Windows), this script is useless and should be removed.
+
 [1]: https://github.com/nvaccess/nvda/issues/9528
 
 [2]: https://www.nvaccess.org/files/nvda/documentation/developerGuide.html
 
 [3]: https://addons.nvda-project.org/addons/speech_history.en.html
+
+[4]: https://github.com/CyrilleB79/startupOptionWorkaround
+
