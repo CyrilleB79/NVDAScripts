@@ -20,6 +20,12 @@ import ui
 import api
 import controlTypes
 
+#PY3 compa
+try:
+	unicode
+except NameError:
+	unicode = str
+
 def _createDicControlTypesConstantes(prefix):
 	dic = {}
 	attributes = dir(controlTypes)
