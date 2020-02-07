@@ -28,6 +28,17 @@ To activate or de-activate beep error feature, press NVDA+control+alt+B
 This script allows to enable the stack trace logging of the speech function when pressing NVDA+control+alt+S. You may modify this file to pathc another function.
 See all instructions in the file for details on usage.
 
+### globalPlugins/ocrPdf.py
+
+This script allows to OCR an opened PDF in Adobe Reader with MS word.
+Before first use, open a PDF manually in MS Word. If you did not disable it before a warning dialog will appear with the following message:
+"Word will now convert your PDF to an editable Word document.  This may take a while.  The resulting Word document will be optimized to allow you to edit the text, so it might not look exactly like the original PDF, especially if the original file contained lots of graphics."
+Check the checkbox "Don't show this message again" and validate by clicking "OK".
+If you want to restore Word's original behaviour with this dialog appearing, opan the following registry key:
+HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Options
+And delete the delete the DisableConvertPdfWarning value or set it to 0.
+Work is in course to support the conversion from a selected file in Windows Explorer but this is not yet functional.
+
 ### globalPlugins/windowutil.py
 
 This debug script allows to get various information on the current navigator object or associated window. It is an improvement of [NVDA developer guide][2] example 3
