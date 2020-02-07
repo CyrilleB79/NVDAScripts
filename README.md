@@ -38,7 +38,7 @@ Usage:
 * NVDA+Shift+LeftArrow or NVDA+Shift+RightArrow: select previous or next property and announce it for the navigator object.
 
 The list of supported properties is the following:
-name, role, state, value, windowClassName, windowControlID, windowHandle, pythonClass, pythonClassMRO
+name, role, state, value, windowClassName, windowControlID, windowHandle, location, pythonClass, pythonClassMRO
 
 If you have installed [Speech history review and copying][3]  addon from Tyler Spivey and James Scholes, you may use it to copy and paste the announced property to review it;
 review via copy/paste is especially useful for pythonClassMRO since it may be long.

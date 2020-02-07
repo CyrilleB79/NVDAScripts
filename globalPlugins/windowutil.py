@@ -14,17 +14,12 @@
 #If you have installed Speech history review and copying [https://addons.nvda-project.org/addons/speech_history.en.html] addon from Tyler Spivey and James Scholes, you may use it to copy and paste the announced property to review it;
 #review via copy/paste is especially useful for pythonClassMRO since it may be long.
 
+from __future__ import unicode_literals
 
 import globalPluginHandler
 import ui
 import api
 import controlTypes
-
-#PY3 compa
-try:
-	unicode
-except NameError:
-	unicode = str
 
 def _createDicControlTypesConstantes(prefix):
 	dic = {}
@@ -38,23 +33,30 @@ def _createDicControlTypesConstantes(prefix):
 _DIC_ROLES = _createDicControlTypesConstantes('ROLE_')
 _DIC_STATES = _createDicControlTypesConstantes('STATE_')
 
-def getStateInfos(o):
+def getStateInfo(o):
 	info = sorted(o.states)
 	names = ', '.join([_DIC_STATES[i] for i in info])
-	info = unicode(names) + u' (' + unicode(info) + u')'
+	info = '{} ({})'.format(names, info)
+	return info
+	
+def getLocationInfo(o):
+	info = ', '.join('{}: {}'.format(i, getattr(o.location, i)) for i in ['left', 'top', 'width', 'height'])
 	return info
 			
+	
+
 	
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	
 	_INFO_TYPES = ['name',
-		('role', lambda o: _DIC_ROLES[o.role] + u' (' + unicode(o.role) + u')'),
-		('states', getStateInfos),
+		('role', lambda o: '{} ({})'.format(_DIC_ROLES[o.role], o.role)),
+		('states', getStateInfo),
 		'value',
 		'windowClassName',
 		'windowControlID',
 		'windowHandle',
-		('pythonClass', lambda o: type(o)),
+		('location', getLocationInfo),
+		('pythonClass', lambda o: str(type(o))),
 		('pythonClassMRO', lambda o: str(type(o).mro()).replace('>, <', ',\r\n').replace('[<', '\r\n', 1).replace('>]',''))]
 	
 	def __init__(self):
@@ -81,23 +83,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def announceCurrentInfo(self):
 		infoType = self._INFO_TYPES[self.index]
 		nav = api.getNavigatorObject()
-		if isinstance(infoType, str):
-			info = getattr(nav, infoType)
-		else:
+		if isinstance(infoType, tuple):
 			infoType, fun = infoType
 			info = fun(nav)
-		ui.message(infoType + u': ' + unicode(info))
-		return
-		if infoType == 'role':
-			name = self._DIC_ROLES[info]
-			info = name + u' (' + unicode(info) + u')'
-		elif infoType == 'states':
-			info = sorted(info)
-			names = ', '.join([self._DIC_STATES[i] for i in info])
-			info = unicode(names) + u' (' + unicode(info) + u')'
-		ui.message(infoType + u': ' + unicode(info))
+		else:
+			info = getattr(nav, infoType)
+		ui.message('{}: {}'.format(infoType, info))
 		
-	
 	__gestures = {
 		"kb:NVDA+rightArrow": "announceObjectInfo",
 		"kb:NVDA+shift+leftArrow": "priorObjectInfo",
