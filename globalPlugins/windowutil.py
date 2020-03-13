@@ -85,9 +85,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		nav = api.getNavigatorObject()
 		if isinstance(infoType, tuple):
 			infoType, fun = infoType
-			info = fun(nav)
 		else:
-			info = getattr(nav, infoType)
+			fun = lambda o: getattr(o, infoType)
+		try:
+			info = fun(nav)
+		except:
+			info = 'Unavailable information'
 		ui.message('{}: {}'.format(infoType, info))
 		
 	__gestures = {
