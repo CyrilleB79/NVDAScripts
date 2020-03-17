@@ -25,7 +25,12 @@ from keyboardHandler import KeyboardInputGesture
 from comtypes.client import CreateObject, GetActiveObject
 
 import os.path
-from urllib.parse import urlparse
+try:
+	# Python 3
+	from urllib.parse import urlparse
+except ImportError:
+	# Python 2
+	from urlparse import urlparse
 
 # Strings to be translated in Adobe Reader's language. These are required by the script to get the information of these fields
 # label of the 'File:' field (first field) in 'Description' pane (first pane)
