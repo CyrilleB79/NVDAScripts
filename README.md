@@ -28,6 +28,10 @@ To activate or de-activate beep error feature, press NVDA+control+alt+B
 This script allows to enable the stack trace logging of the speech function when pressing NVDA+control+alt+S. You may modify this file to pathc another function.
 See all instructions in the file for details on usage.
 
+### globalPlugins/ipareader.py
+
+This script allows read a text written with IPA (International Phonetic Alphabet). For this to work, your synthesizer must support PhonemeCommand. This script extends eSpeak's minimalist PhonemeCommand support. This script was tested with eSpeak and IBMTTS (modified version). For both these synthesizers, it is a work in progress.
+
 ### globalPlugins/ocrPdf.py
 
 This script allows to OCR an opened PDF in Adobe Reader with MS word.
