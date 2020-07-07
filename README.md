@@ -12,7 +12,7 @@ This may include potential features in development, (to be included later in an 
     * copy the script you want to install in the corresponding subfolder (appModules or globalPlugins) of the scratchpad folder.
 
 
-## Scripts
+## globalPlugins Scripts
 
 ### globalPlugins/autoLangSwitch.py
 
@@ -29,6 +29,7 @@ This script provides information on any script in input help mode. If the execut
 
 Executing a gesture bound to a script without description in input help mode also create an entry for this script in the gesture management dialog. This entry is located in a dedicated category called "Scripts without description (modify at your own risk!)". This allow to easily add, delete or change the native NVDA gestures for these script.
 Be aware however that it is often intended that such script do not have any description to prevent the user to modify the associated gesture. Indeed, the gesture may be defined to match an application shortcut key. For example the script script_toggleItalic on NVDAObjects.window.winword.WordDocument is bound to control+I and this should not be modified since the gesture is passed to the application to actually execute the shortcut key.
+
 Known bug: A script added for a specific class is visible even if gesture manager is opened in another context.
 
 ### globalPlugins/debugTool.py
@@ -62,11 +63,17 @@ name, role, state, value, windowClassName, windowControlID, windowHandle, locati
 If you have installed [Speech history review and copying][3]  addon from Tyler Spivey and James Scholes, you may use it to copy and paste the announced property to review it;
 review via copy/paste is especially useful for pythonClassMRO since it may be long.
 
+## appModules scripts
+
+### appModules/matlab.py
+
+A script to issue some commands in Matlab console by just pressing a keystroke. E.g. press F5 to issue "dbcont" command.
+
 ## Removed scripts
 
 ### globalPlugins/startupOptionWorkaround.py
 
-This script has been package as an add-on: [Startup option workaround add-on][4] that is itself deprecated.
+This script has been packaged as an add-on: [Startup option workaround add-on][4] that is itself deprecated.
 
 With Windows 10 1903 update, NVDA may start after logon even when this is disabled in General settings panel (cf. [#9528][1]).
 This script does not fix the issue. However, as a work-around, it unloads NVDA just after startup in the case it should not have started up at all.
