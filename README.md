@@ -23,6 +23,14 @@ This script allows to cycles through speech automatic language detection modes o
 This script allows NVDA to beep on error even in NVDA non-test versions.
 To activate or de-activate beep error feature, press NVDA+control+alt+B
 
+### globalPlugins/debugHelpMode.py
+
+This script provides information on any script in input help mode. If the executed script has no description, the script's name and location/class are announced instead.
+
+Executing a gesture bound to a script without description in input help mode also create an entry for this script in the gesture management dialog. This entry is located in a dedicated category called "Scripts without description (modify at your own risk!)". This allow to easily add, delete or change the native NVDA gestures for these script.
+Be aware however that it is often intended that such script do not have any description to prevent the user to modify the associated gesture. Indeed, the gesture may be defined to match an application shortcut key. For example the script script_toggleItalic on NVDAObjects.window.winword.WordDocument is bound to control+I and this should not be modified since the gesture is passed to the application to actually execute the shortcut key.
+Known bug: A script added for a specific class is visible even if gesture manager is opened in another context.
+
 ### globalPlugins/debugTool.py
 
 This script allows to enable the stack trace logging of the speech function when pressing NVDA+control+alt+S. You may modify this file to pathc another function.
@@ -58,7 +66,7 @@ review via copy/paste is especially useful for pythonClassMRO since it may be lo
 
 ### globalPlugins/startupOptionWorkaround.py
 
-This script has been package as an add-on: [Startup option workaround add-on][4]
+This script has been package as an add-on: [Startup option workaround add-on][4] that is itself deprecated.
 
 With Windows 10 1903 update, NVDA may start after logon even when this is disabled in General settings panel (cf. [#9528][1]).
 This script does not fix the issue. However, as a work-around, it unloads NVDA just after startup in the case it should not have started up at all.
