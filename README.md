@@ -34,8 +34,15 @@ Known bug: A script added for a specific class is visible even if gesture manage
 
 ### globalPlugins/debugTool.py
 
-This script allows to enable the stack trace logging of the speech function when pressing NVDA+control+alt+S. You may modify this file to pathc another function.
+This script allows to enable the stack trace logging of the speech function when pressing NVDA+control+alt+S. You may modify this file to patch another function.
 See all instructions in the file for details on usage.
+
+### globalPlugins/langChangeRate.py
+
+A quick and dirty script allowing to modify the speech rate when a language other than the default language is detected.
+To configure the modification factor, e.g. -40%, type in the console:
+`config.conf['paramChangeUponLangChange']['rateChange'] = -40`
+Not tested with rate boost on.
 
 ### globalPlugins/ocrPdf.py
 
