@@ -55,6 +55,10 @@ HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Options
 And delete the delete the DisableConvertPdfWarning value or set it to 0.
 Work is in course to support the conversion from a selected file in Windows Explorer but this is not yet functional.
 
+### visualHighlighterToggler.py
+
+This module adds script (unassigned by default) to toggle Visual Highlighter.
+
 ### globalPlugins/windowutil.py
 
 This debug script allows to get various information on the current navigator object or associated window. It is an improvement of [NVDA developer guide][2] example 3
