@@ -1,0 +1,246 @@
+﻿symbols:
+!	exclamation
+&	èndd
+|	paillpp
+/	slash
+?	interrogation
+@	ath
+\\	backslash	some
+Å	A rond en chef	char	norep
+å	a rond en chef	char	norep
+Þ	Thorn	char	norep
+þ	thorn	char	norep
+ð	eth	char	norep
+Ā	A macron	char	norep
+ā	a macron	char	norep
+Ă	A bref	char	norep
+ă	a bref	char	norep
+Ą	A ogonek	char	norep
+ą	a ogonek	char	norep
+Ć	C accent aigu	char	norep
+ć	c accent aigu	char	norep
+Č	C hatchek	char	norep
+č	c hatchek	char	norep
+Ď	D hatchek	char	norep
+ď	d hatchek	char	norep
+Ē	e macron	char	norep
+ē	e macron	char	norep
+Ė	E point suscrit	char	norep
+ė	e point suscrit	char	norep
+Ę	E ogonek	char	norep
+ę	e ogonek	char	norep
+Ģ	G cédille	char	norep
+ģ	g cédille	char	norep
+ħ	h barré	char	norep
+Ī	I  macron	char	norep
+ī	i  macron	char	norep
+Į	I ogonek	char	norep
+į	i ogonek	char	norep
+İ	i point suscrit	char	norep
+ı	i sans point	char	norep
+Ĳ	I J	char	norep
+ĳ	i j	char	norep
+Ķ	K cédille	char	norep
+ķ	k cédille	char	norep
+Ļ	L cédille	char	norep
+ļ	l cédille	char	norep
+Ŀ	L point	char	norep
+ŀ	l point	char	norep
+Ł	L barré	char	norep
+ł	l barré	char	norep
+Ņ	N cédille	char	norep
+ņ	n cédille	char	norep
+Ń	N accent aigu	char	norep
+ń	n accent aigu	char	norep
+Ň	N hatchek	char	norep
+ň	n hatchek	char	norep
+ŋ	èing	char	norep
+Ō	O macron	char	norep
+ō	o macron	char	norep
+Ő	O double accent aigu	char	norep
+ő	o double accent aigu	char	norep
+Ř	R hatchek	char	norep
+ř	r hatchek	char	norep
+Ś	S accent aigu	char	norep
+ś	s accent aigu	char	norep
+Ş	S cédille	char	norep
+ş	s cédille	char	norep
+Ţ	T cédille	char	norep
+ţ	t cédille	char	norep
+Ť	T hatchek	char	norep
+ť	t hatchek	char	norep
+Ū	U macron	char	norep
+ū	u macron	char	norep
+Ű	U double accent aigu	char	norep
+ű	u double accent aigu	char	norep
+Ų	U ogonek	char	norep
+ų	u ogonek	char	norep
+Ÿ	i grec tréma	char	norep
+Ź	Z accent aigu	char	norep
+ź	z accent aigu	char	norep
+Ż	Z point suscrit	char	norep
+ż	z point suscrit	char	norep
+Ž	Z hatchek	char	norep
+ž	z hatchek	char	norep
+ſ	s long
+Ƶ	Z barré	char	norep
+ƶ	z barré	char	norep
+Ș	S virgule souscrite	char	norep
+ș	s virgule souscrite	char	norep
+Ț	T virgule souscrite	char	norep
+ț	t virgule souscrite	char	norep
+ɐ	a culbuté	char	norep
+ɑ	alpha latin	char	norep
+ɒ	alpha culbuté	char	norep
+ɔ	o ouvert	char	norep
+ə	schwa	char	norep
+ɚ	schwa crochet rhotique	char	norep
+ɛ	epsilone latin	char	norep
+ɜ	epsilone réfléchi	char	norep
+ɝ	epsilon réfléchi crochet rhotique	char	norep
+ɟ	f culbuté	char	norep
+ɣ	gamma latin	char	norep
+ɥ	h culbuté 	char	norep
+ɪ	petite capitale i	char	norep
+ɫ	l tilde median	char	norep
+ɰ	m culbuté à long fût	char	norep
+ɱ	m hameçon	char	norep
+ɲ	n hameçon	char	norep
+ɹ	r culbuté	char	norep
+ɾ	r sans obit	char	norep
+ʀ	petite capitale r	char	norep
+ʁ	petite capitale R renversé	char	norep
+ʃ	ech	char	norep
+ʊ	upsilone latin	char	norep
+ʌ	v culbuté	char	norep
+ʍ	w culbuté	char	norep
+ʎ	i grec culbuté	char	norep
+ʏ	petite capitale i grec	char	norep
+ʒ	ej	char	norep
+ʔ	coup de glotte	char	norep
+ʣ	d z	char	norep
+ʤ	d ej	char	norep
+ʦ	t s	char	norep
+ʧ	t ech	char	norep
+ʰ	h en exposant	char	norep
+ʲ	j en exposant	char	norep
+ʻ	virgule culbutée	char	norep
+ˈ	accent primaire	char	norep
+ˌ	accent secondaire	char	norep
+ː	chrône	char	norep
+ˑ	demi chrône	char	norep
+̃	tilde	char	norep
+̆	brève	char	norep
+̩	trait vertical souscrit	char	norep
+̯	brève souscrite	char	norep
+͜	double brève souscrite	char	norep
+͡	double brève inversée	char	norep
+ẞ	estsett	char	norep
+`	-	-	always
+Ά	alpha accent	none	never
+Έ	epsilon accent	none	never
+Ή	êta accent	none	never
+Ί	iota accent	none	never
+Ό	omicron accent	none	never
+Ύ	upsilon accent	none	never
+Ώ	oméga accent	none	never
+ΐ	iota  tréma accent	none	never
+Ϊ	iota tréma	none	never
+Ϋ	upsilon tréma	none	never
+ά	alpha accent	none	never
+έ	epsilon accent	none	never
+ή	êta accent	none	never
+ί	iota accent	none	never
+ΰ	upsilon tréma accent	none	never
+ρ	rhô	none	never
+ϊ	iota tréma	none	never
+ϋ	upsilon tréma	none	never
+ό	omicron accent	none	never
+ύ	upsilon accent	none	never
+ώ	oméga accent	none	never
+Ϗ	kai	none	never
+Υ	upsilon	none	never
+ϒ	upsilon crochet	none	never
+ϓ	upsilon accent crochet	none	never
+ϔ	upsilon tréma crochet	none	never
+ϗ	kai	none	never
+Є	ié ukrainien	none	never
+І	i ukrainien	none	never
+Ї	yi	none	never
+А	a	none	never
+Б	bé	none	never
+В	vé	none	never
+Г	gué	none	never
+Д	dé	none	never
+Е	ié	none	never
+Ж	jé	none	never
+З	zé	none	never
+И	i	none	never
+Й	i bref	none	never
+К	ka	none	never
+Л	èle	none	never
+М	ème	none	never
+Н	ène	none	never
+О	o	none	never
+П	pé	none	never
+Р	ère	none	never
+С	èsse	none	never
+Т	té	none	never
+У	ou	none	never
+Ф	èfe	none	never
+Х	kha	none	never
+Ц	tsé	none	never
+Ч	tché	none	never
+Ш	cha	none	never
+Щ	shtcha	none	never
+Ъ	signe dur	none	never
+Ы	yérou	none	never
+Ь	signe mou	none	never
+Э	éh	none	never
+Ю	iou	none	never
+Я	ia	none	never
+а	a	none	never
+б	bé	none	never
+в	vé	none	never
+г	gué	none	never
+д	dé	none	never
+е	ié	none	never
+ж	jé	none	never
+з	zé	none	never
+и	i	none	never
+й	i bref	none	never
+к	ka	none	never
+л	èle	none	never
+м	ème	none	never
+н	ène	none	never
+о	o	none	never
+п	pé	none	never
+р	ère	none	never
+с	èsse	none	never
+т	té	none	never
+у	ou	none	never
+ф	èfe	none	never
+х	kha	none	never
+ц	tsé	none	never
+ч	tché	none	never
+ш	cha	none	never
+щ	shtcha	none	never
+ъ	signe dur	none	never
+ы	yérou	none	never
+ь	signe mou	none	never
+э	éh	none	never
+ю	iou	none	never
+я	ia	none	never
+ё	io	none	never
+є	ié ukrainien	none	never
+і	i ukrainien	none	never
+ї	yi	none	never
+Ґ	gué hampé	none	never
+ґ	gué hampé	none	never
+♩	note noire	none	never
+♪	note croche	none	never
+♫	deux croches ramées	none	never
+♬	deux double-croches ramées	none	never
+♭	bémol	none	never
+♮	bécarre	none	never
+♯	dièse	none	never

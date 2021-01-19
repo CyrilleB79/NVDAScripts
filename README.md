@@ -2,6 +2,7 @@
 
 This repo gathers various scripts for NVDA screen reader that I have not (yet?) packaged as NVDA addon.
 This may include potential features in development, (to be included later in an addon), debug scripts, test scripts, etc.
+It also includes some configuration files.
 
 ## Installation
 
@@ -79,6 +80,17 @@ review via copy/paste is especially useful for pythonClassMRO since it may be lo
 ### appModules/matlab.py
 
 A script to issue some commands in Matlab console by just pressing a keystroke. E.g. press F5 to issue "dbcont" command.
+
+## Configuration files
+
+### symbols-fr.dic
+
+My French symbol configuration file. Specifically it includes the following extra character description:
+- additional latin characters with diacritics
+- IPA characters
+- grec characters with diacritics (the greek characters without diacritic are already included in NVDA's French symbols.dic)
+- cyrillic characters
+- a few musical symbols
 
 ## Removed scripts
 
