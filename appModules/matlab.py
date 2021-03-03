@@ -5,6 +5,14 @@ import appModuleHandler
 from NVDAObjects.behaviors import Terminal
 import controlTypes
 
+import os
+import sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+from lib.keyboard import keyboard
+del sys.path[-1]
+
 SEND_CMD = 'sendCommand'
 
 class AppModule(appModuleHandler.AppModule):
@@ -35,6 +43,13 @@ class AppModule(appModuleHandler.AppModule):
 			
 	def __init__(self, *args, **kw):
 		super(AppModule, self).__init__(*args, **kw)
+		editorPath = r"C:\Users\cb232690\Documents\App\6pad++\6pad++.exe"
+		goToCurrentExecPointCommand = (
+			"[NVDAMATLAB_currstack, NVDAMATLAB_index] = dbstack('-completenames');"
+			"system(['start /b {editorPath} \"' NVDAMATLAB_currstack(NVDAMATLAB_index).file, '\":', num2str(abs(NVDAMATLAB_currstack(NVDAMATLAB_index).line))]);"
+		).format(editorPath=editorPath)
+		# goToCurrentExecPointCommand = 'NVDAHelperGotoCurrentExecPoint'
+		# goToCurrentExecPointCommand = 'ToExecPoint'
 		self.commandTable = [
 			('DbCont', 'dbcont', 'kb:F5'),
 			('DbStepIn', 'dbstepin', 'kb:F8'),
@@ -42,13 +57,17 @@ class AppModule(appModuleHandler.AppModule):
 			('DbStep', 'dbstep', 'kb:shift+F8'),
 			('DbQuit', 'dbquit', 'kb:shift+escape'),
 			('ClearSound', 'clear sound', 'kb:F7'),
-			('GoToCurrentExecPoint', '', 'kb:control+shift+G'),
-			]
+			('GoToCurrentExecPoint', goToCurrentExecPointCommand, 'kb:control+shift+G'),
+		]
 		self.createAllScript_sendCommand()
 		dicGestures = {gesture: SEND_CMD+name for name,cmd,gesture in self.commandTable}
 		self.bindGestures(dicGestures)
 		
 	def sendCommand(self, sCmd, gesture):
+		keyboard.write(sCmd)
+		keyboard.send('enter')
+		
+	def sendCommand_oldBraille(self, sCmd, gesture):
 		import brailleInput
 		import inputCore
 		import keyboardHandler
