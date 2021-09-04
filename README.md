@@ -19,25 +19,6 @@ It also includes some configuration files.
 
 This script allows to cycles through speech automatic language detection modes off, language only and language+dialect with NVDA+shift+L shortcut.
 
-### globalPlugins/beepError.py
-
-This script allows NVDA to beep on error even in NVDA non-test versions.
-To activate or de-activate beep error feature, press NVDA+control+alt+B
-
-### globalPlugins/debugHelpMode.py
-
-This script provides information on any script in input help mode. If the executed script has no description, the script's name and location/class are announced instead.
-
-Executing a gesture bound to a script without description in input help mode also create an entry for this script in the gesture management dialog. This entry is located in a dedicated category called "Scripts without description (modify at your own risk!)". This allow to easily add, delete or change the native NVDA gestures for these script.
-Be aware however that it is often intended that such script do not have any description to prevent the user to modify the associated gesture. Indeed, the gesture may be defined to match an application shortcut key. For example the script script_toggleItalic on NVDAObjects.window.winword.WordDocument is bound to control+I and this should not be modified since the gesture is passed to the application to actually execute the shortcut key.
-
-Known bug: A script added for a specific class is visible even if gesture manager is opened in another context.
-
-### globalPlugins/debugTool.py
-
-This script allows to enable the stack trace logging of the speech function when pressing NVDA+control+alt+S. You may modify this file to patch another function.
-See all instructions in the file for details on usage.
-
 ### globalPlugins/langChangeRate.py
 
 A quick and dirty script allowing to modify the speech rate when a language other than the default language is detected.
@@ -60,21 +41,6 @@ Work is in course to support the conversion from a selected file in Windows Expl
 
 This module adds script (unassigned by default) to toggle Visual Highlighter.
 
-### globalPlugins/windowutil.py
-
-This debug script allows to get various information on the current navigator object or associated window. It is an improvement of [NVDA developer guide][2] example 3
-
-Usage:
-
-* NVDA+LeftArrow : Announce the navigator object's currently selected property.
-* NVDA+Shift+LeftArrow or NVDA+Shift+RightArrow: select previous or next property and announce it for the navigator object.
-
-The list of supported properties is the following:
-name, role, state, value, windowClassName, windowControlID, windowHandle, location, pythonClass, pythonClassMRO
-
-If you have installed [Speech history review and copying][3]  addon from Tyler Spivey and James Scholes, you may use it to copy and paste the announced property to review it;
-review via copy/paste is especially useful for pythonClassMRO since it may be long.
-
 ## appModules scripts
 
 ### appModules/matlab.py
@@ -89,11 +55,19 @@ The lib folder contains a dependancy. Thus, it has also to be copied in the scra
 My French symbol configuration file. Specifically it includes the following extra character description:
 - additional latin characters with diacritics
 - IPA characters
-- grec characters with diacritics (the greek characters without diacritic are already included in NVDA's French symbols.dic)
+- greek characters with diacritics (the greek characters without diacritic are already included in NVDA's French symbols.dic)
 - cyrillic characters
 - a few musical symbols
 
 ## Removed scripts
+
+### Debug and test scripts
+
+The following debug and test scripts have been included in the [NVDA Dev & Test Toolbox][3] addon.
+* globalPlugins/beepError.py
+* globalPlugins/debugHelpMode.py
+* globalPlugins/debugTool.py
+* globalPlugins/windowutil.py
 
 ### globalPlugins/startupOptionWorkaround.py
 
@@ -105,9 +79,7 @@ Of course, when [#9528][1] is fixed in NVDA (or in Windows), this script is usel
 
 [1]: https://github.com/nvaccess/nvda/issues/9528
 
-[2]: https://www.nvaccess.org/files/nvda/documentation/developerGuide.html
-
-[3]: https://addons.nvda-project.org/addons/speech_history.en.html
+[3]: https://github.com/CyrilleB79/NVDA-Dev-Test-Toolbox
 
 [4]: https://github.com/CyrilleB79/startupOptionWorkaround
 
