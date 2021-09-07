@@ -19,6 +19,11 @@ It also includes some configuration files.
 
 This script allows to cycles through speech automatic language detection modes off, language only and language+dialect with NVDA+shift+L shortcut.
 
+### globalPlugins/configDuringSayAll
+
+This script allows to modify speech parameter while in SayAll without stopping SayAll.
+The commands affected by this feature are the synthesizer ring commands, the command to cycle through punctuation level and thetoggle to report or not CLDR.
+
 ### globalPlugins/langChangeRate.py
 
 A quick and dirty script allowing to modify the speech rate when a language other than the default language is detected.
