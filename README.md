@@ -46,7 +46,7 @@ HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Options
 And delete the delete the DisableConvertPdfWarning value or set it to 0.
 Work is in course to support the conversion from a selected file in Windows Explorer but this is not yet functional.
 
-### visualHighlighterToggler.py
+### globalPlugins/visualHighlighterToggler.py
 
 This module adds script (unassigned by default) to toggle Visual Highlighter.
 
@@ -56,6 +56,13 @@ This module adds script (unassigned by default) to toggle Visual Highlighter.
 
 A script to issue some commands in Matlab console by just pressing a keystroke. E.g. press F5 to issue "dbcont" command.
 The lib folder contains a dependancy. Thus, it has also to be copied in the scratchpad folder.
+
+## visionEnhancementProviders
+
+### colorEnhancer.py
+
+A prototype in alpha stage to play with vision enhancement providers and Magnification API.
+This provider allows to customize the screen color transformation.
 
 ## Configuration files
 
