@@ -19,6 +19,10 @@ It also includes some configuration files.
 
 This script allows to cycles through speech automatic language detection modes off, language only and language+dialect with NVDA+shift+L shortcut.
 
+### globalPlugins/changeOutputDevice.py
+
+This global plugin creates a command to cycle through the audio output devices.
+
 ### globalPlugins/configDuringSayAll
 
 This script allows to modify speech parameter while in SayAll without stopping SayAll.
