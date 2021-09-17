@@ -12,6 +12,9 @@ import config
 import nvwave
 from scriptHandler import script
 import addonHandler
+import tones
+from synthDriverHandler import getSynth, setSynth
+import core
 
 # Store original NVDA translation function.
 nvdaTranslations = _
@@ -39,14 +42,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		selection = (selection + 1) % len(deviceNames)
 		audioDevice = deviceNames[selection]
 		config.conf["speech"]["outputDevice"] = audioDevice
-		# Reinitialize the tones and speech modules to update the audio device
+		
+		# Reinitialize the tones module and the synth to update the audio device
 		# On the contrary to what is written in onOK method of SynthesizerSelectionDialog,
 		# reinitializing only tones module is not enough.
-		import tones
-		import speech
-		speech.terminate()
-		tones.terminate()
-		tones.initialize()
-		speech.initialize()
-		ui.message(audioDevice)
+		# Note: we need to reinitialize synth out of a script to avoid an error if the current synth is silence.
+		def runOutOfScript():
+			tones.terminate()
+			setSynth(getSynth().name)
+			tones.initialize()
+			ui.message(audioDevice)
+		core.callLater(0, runOutOfScript)
+		return
 	
