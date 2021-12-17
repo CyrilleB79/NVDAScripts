@@ -8,7 +8,6 @@
 # - synth settings ring commands
 # - change punctuation level
 # - report CLDR
-# To use it, put it in the globalPlugins folder of the scratchpad directory.
 
 import globalPluginHandler
 import ui

@@ -4,7 +4,6 @@
 #This file is covered by the GNU General Public License.
 
 #This script allows to cycles through speech automatic language detection modes off, language only and language+dialect with NVDA+shift+L shortcut.
-#To use it, put it in the globalPlugins folder.
 
 import globalPluginHandler
 import ui

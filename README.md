@@ -7,7 +7,7 @@ It also includes some configuration files.
 ## Installation
 
 * For NVDA up to 2018.4.1, copy the script you want to install in the corresponding subfolder (appModules or globalPlugins) in the user config folder of NVDA.
-* For NVDA from 2019.1:
+* For NVDA from 2019.1 onwards:
     * In the Advanced category of the settings dialog, check the "Enable loading custom code from Developer Scratchpad directory" option.
     * Press the "Open developer scratchpad directory" button
     * copy the script you want to install in the corresponding subfolder (appModules or globalPlugins) of the scratchpad folder.
@@ -27,6 +27,11 @@ This global plugin creates a command to cycle through the audio output devices.
 
 This script allows to modify speech parameter while in SayAll without stopping SayAll.
 The commands affected by this feature are the synthesizer ring commands, the command to cycle through punctuation level and thetoggle to report or not CLDR.
+
+### globalPlugins/findExtended.py
+
+This script removes the dialog box that appears when no more occurrence is found during a search operation.
+Only a message is reported instead.
 
 ### globalPlugins/langChangeRate.py
 

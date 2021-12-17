@@ -3,7 +3,6 @@
 # This file is covered by the GNU General Public License.
 
 """This global plugin creates a command to cycle through the audio output devices.
-To use it, put it in the globalPlugins folder of the scratchpad.
 """
 
 import globalPluginHandler

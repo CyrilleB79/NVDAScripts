@@ -4,7 +4,6 @@
 # This file is covered by the GNU General Public License.
 
 # This script allows to OCR an opened PDF with MS word.
-# To use it, put it in the globalPlugins folder.
 # Before first use, open a PDF manually in MS Word. If you did not disable it before a warning dialog will appear with the following message:
 # "Word will now convert your PDF to an editable Word document.  This may take a while.  The resulting Word document will be optimized to allow you to edit the text, so it might not look exactly like the original PDF, especially if the original file contained lots of graphics."
 # Check the checkbox "Don't show this message again" and validate by clicking "OK".
