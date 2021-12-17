@@ -44,12 +44,16 @@ Not tested with rate boost on.
 
 This script allows to OCR an opened PDF in Adobe Reader with MS word.
 Before first use, open a PDF manually in MS Word. If you did not disable it before a warning dialog will appear with the following message:
-"Word will now convert your PDF to an editable Word document.  This may take a while.  The resulting Word document will be optimized to allow you to edit the text, so it might not look exactly like the original PDF, especially if the original file contained lots of graphics."
+"Word will now convert your PDF to an editable Word document.Â  This may take a while.Â  The resulting Word document will be optimized to allow you to edit the text, so it might not look exactly like the original PDF, especially if the original file contained lots of graphics."
 Check the checkbox "Don't show this message again" and validate by clicking "OK".
 If you want to restore Word's original behaviour with this dialog appearing, opan the following registry key:
 HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Options
 And delete the delete the DisableConvertPdfWarning value or set it to 0.
 Work is in course to support the conversion from a selected file in Windows Explorer but this is not yet functional.
+
+### globalPlugins/romanNumbers.py
+
+This script adapts the CamelCase word split rule to exclude the cases of ordinal roman numbers used in French.
 
 ### globalPlugins/visualHighlighterToggler.py
 
