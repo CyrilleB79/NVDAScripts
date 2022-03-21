@@ -22,7 +22,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import NVDAObjects.behaviors, NVDAObjects.window, NVDAObjects.window.winConsole
-		if obj.windowClassName == "Edit" and obj.role == controlTypes.ROLE_EDITABLETEXT:
+		if obj.windowClassName == "Edit" and obj.role == controlTypes.Role.EDITABLETEXT:
 			#obj.STABILIZE_DELAY = 0
 			clsList[0:0] = [
 				NVDAObjects.behaviors.Terminal,
@@ -31,7 +31,7 @@ class AppModule(appModuleHandler.AppModule):
 				]
 			
 			
-		if False and obj.windowClassName == "Edit" and obj.role == controlTypes.ROLE_EDITABLETEXT:
+		if False and obj.windowClassName == "Edit" and obj.role == controlTypes.Role.EDITABLETEXT:
 			from NVDAObjects.window import DisplayModelEditableText, DisplayModelLiveText
 			from NVDAObjects.window import winConsole #.WinConsole
 			try:
@@ -77,7 +77,7 @@ class AppModule(appModuleHandler.AppModule):
 		inputCore.manager.emulateGesture(keyboardHandler.KeyboardInputGesture.fromName("enter"))
 		
 	def DISABLED_zzz_chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.windowClassName == "Edit" and obj.role == controlTypes.ROLE_EDITABLETEXT:
+		if obj.windowClassName == "Edit" and obj.role == controlTypes.Role.EDITABLETEXT:
 			#clsList.insert(0, EnhancedEditField)
 			clsList.insert(0, Terminal)
 

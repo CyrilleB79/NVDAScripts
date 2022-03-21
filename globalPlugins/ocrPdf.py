@@ -75,7 +75,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message('No path')
 		path = os.path.abspath(os.path.join(p.netloc, pPath))
 		obj = api.getFocusObject()
-		if obj.role == controlTypes.ROLE_LISTITEM:
+		if obj.role == controlTypes.Role.LISTITEM:
 			if obj.firstChild is not None:
 				obj = obj.firstChild
 		else:
