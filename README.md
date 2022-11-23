@@ -65,6 +65,8 @@ This module adds script (unassigned by default) to toggle Visual Highlighter.
 
 A script to issue some commands in Matlab console by just pressing a keystroke. E.g. press F5 to issue "dbcont" command.
 The lib folder contains a dependancy. Thus, it has also to be copied in the scratchpad folder.
+The script gcep.m should be copied in a path available in your Matlab environment, e.g.
+C:\Users\yourUserName\Documents\MATLAB
 
 ## visionEnhancementProviders
 
