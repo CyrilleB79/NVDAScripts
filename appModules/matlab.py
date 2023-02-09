@@ -1,4 +1,7 @@
-﻿# Matlab App Module for NVDA
+﻿# -*- coding: UTF-8 -*-
+# Matlab App Module for NVDA
+# Copyright (C) 2022 Cyrille Bougot
+# This file is covered by the GNU General Public License.
 
 
 import appModuleHandler
@@ -9,8 +12,9 @@ import os
 import sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
-sys.path.append(parentdir)
-from lib.keyboard import keyboard
+libdir = os.path.join(parentdir, 'lib')
+sys.path.append(libdir)
+from keyboard import keyboard
 del sys.path[-1]
 
 SEND_CMD = 'sendCommand'
@@ -43,21 +47,14 @@ class AppModule(appModuleHandler.AppModule):
 			
 	def __init__(self, *args, **kw):
 		super(AppModule, self).__init__(*args, **kw)
-		editorPath = r"C:\Users\cb232690\Documents\App\6pad++\6pad++.exe"
-		goToCurrentExecPointCommand = (
-			"[NVDAMATLAB_currstack, NVDAMATLAB_index] = dbstack('-completenames');"
-			"system(['start /b {editorPath} \"' NVDAMATLAB_currstack(NVDAMATLAB_index).file, '\":', num2str(abs(NVDAMATLAB_currstack(NVDAMATLAB_index).line))]);"
-		).format(editorPath=editorPath)
-		# goToCurrentExecPointCommand = 'NVDAHelperGotoCurrentExecPoint'
-		# goToCurrentExecPointCommand = 'ToExecPoint'
 		self.commandTable = [
 			('DbCont', 'dbcont', 'kb:F5'),
-			('DbStepIn', 'dbstepin', 'kb:F8'),
-			('DbStepOut', 'dbstepout', 'kb:control+shift+F8'),
+			('DbStepIn', 'dbstep in', 'kb:F8'),
+			('DbStepOut', 'dbstep out', 'kb:control+shift+F8'),
 			('DbStep', 'dbstep', 'kb:shift+F8'),
 			('DbQuit', 'dbquit', 'kb:shift+escape'),
 			('ClearSound', 'clear sound', 'kb:F7'),
-			('GoToCurrentExecPoint', goToCurrentExecPointCommand, 'kb:control+shift+G'),
+			('GoToCurrentExecPoint', 'gcep', 'kb:F11'),
 		]
 		self.createAllScript_sendCommand()
 		dicGestures = {gesture: SEND_CMD+name for name,cmd,gesture in self.commandTable}
@@ -86,7 +83,7 @@ class AppModule(appModuleHandler.AppModule):
 		def  _genericScript_sendCommand(self, gesture):
 			self.sendCommand(cmd,gesture)
 		#Translators: Input help mode message pattern for the script used to send commands to Matlab.
-		_genericScript_sendCommand.__doc__ = _("Send a command to Matlab: {name}").format(name=name)
+		_genericScript_sendCommand.__doc__ = _("Send a command to Matlab: {name}").format(name=name[7:])
 		return _genericScript_sendCommand
 	
 	
