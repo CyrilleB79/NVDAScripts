@@ -15,10 +15,6 @@ It also includes some configuration files.
 
 ## globalPlugins Scripts
 
-### globalPlugins/autoLangSwitch.py
-
-This script allows to cycles through speech automatic language detection modes off, language only and language+dialect with NVDA+shift+L shortcut.
-
 ### globalPlugins/changeOutputDevice.py
 
 This global plugin creates a command to cycle through the audio output devices.
@@ -103,7 +99,15 @@ With Windows 10 1903 update, NVDA may start after logon even when this is disabl
 This script does not fix the issue. However, as a work-around, it unloads NVDA just after startup in the case it should not have started up at all.
 Of course, when [#9528][1] is fixed in NVDA (or in Windows), this script is useless and should be removed.
 
+### globalPlugins/autoLangSwitch.py
+
+This feature has been integrated in NVDA 2022.2 (see issue [#10253][2]).
+
+This script allows to cycles through speech automatic language detection modes off, language only and language+dialect with NVDA+shift+L shortcut.
+
 [1]: https://github.com/nvaccess/nvda/issues/9528
+
+[2]: https://github.com/nvaccess/nvda/issues/10253
 
 [3]: https://github.com/CyrilleB79/NVDA-Dev-Test-Toolbox
 
