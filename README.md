@@ -11,6 +11,7 @@ It also includes some configuration files.
     * In the Advanced category of the settings dialog, check the "Enable loading custom code from Developer Scratchpad directory" option.
     * Press the "Open developer scratchpad directory" button
     * copy the script you want to install in the corresponding subfolder (appModules or globalPlugins) of the scratchpad folder.
+    * Validate with "OK" in the settings dialog.
 
 
 ## globalPlugins Scripts
@@ -62,6 +63,11 @@ This module adds script (unassigned by default) to toggle Visual Highlighter.
 A script to issue some commands in Matlab console by just pressing a keystroke. E.g. press F5 to issue "dbcont" command.
 The lib folder contains a dependancy. Thus, it has also to be copied in the scratchpad folder.
 The file gcep.m should be copied in a location available in the matlab PATH.
+
+### appModules/notepad.py
+
+A plugin to have the current line read when pressing enter to send the caret to the next line.
+This plugin aims to answer the need related to communication between a mute person and a blind person.
 
 ## visionEnhancementProviders
 
