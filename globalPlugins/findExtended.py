@@ -1,5 +1,5 @@
 # Do not open a message box when no more occurrence is found during a search operation.
-# Copyright (C) 2021 Cyrille Bougot
+# Copyright (C) 2021-2023 Cyrille Bougot
 # This file is covered by the GNU General Public License.
 
 """This script removes the dialog box that appears when no more occurrence is found during a search operation.
@@ -14,6 +14,14 @@ import speech
 import gui
 
 import wx
+
+try:
+	# Python 3
+	from inspect import signature
+	enableFeature = True
+except:
+	# Python 2
+	enableFeature = False
 
 
 # Store original NVDA translation function.
@@ -45,12 +53,19 @@ def newDoFindText(self, text, reverse=False, caseSensitive=False, willSayAllResu
 		wx.CallAfter = originalWxCallAfter
 
 
+if enableFeature and len(signature(originalDoFindText).parameters) < 5:
+	# Before NVDA 2020.4 / #11564: disable the feature since the signature of the patched function is different
+	enableFeature = False
+
+
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	
 	def __init__(self, *args, **kw):
 		super().__init__(*args, **kw)
-		CursorManager.doFindText = newDoFindText
+		if enableFeature:
+			CursorManager.doFindText = newDoFindText
 		
 	def terminate(self):
-		CursorManager.doFindText = originalDoFindText
+		if enableFeature:
+			CursorManager.doFindText = originalDoFindText
 		super().terminate()
