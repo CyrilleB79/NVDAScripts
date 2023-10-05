@@ -45,6 +45,8 @@ def getSourceShortcutsInFile(path, inCode):
 				continue
 			recShortcut = REC_SHORTCUT_IN_CODE if inCode else REC_SHORTCUT
 			shortcuts.update(recShortcut.findall(line))
+	if inCode:
+		shortcuts = [s.split(':', 1)[1] for s in shortcuts]
 	return shortcuts
 
 
