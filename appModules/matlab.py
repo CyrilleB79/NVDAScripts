@@ -1,19 +1,26 @@
 ﻿# -*- coding: UTF-8 -*-
 # Matlab App Module for NVDA
-# Copyright (C) 2022 Cyrille Bougot
+# Copyright (C) 2022-2023 Cyrille Bougot
 # This file is covered by the GNU General Public License.
 
 
 import appModuleHandler
 from NVDAObjects.behaviors import Terminal
 import controlTypes
+import globalPlugins
+import api
+import textInfos
+from scriptHandler import script
 
 import os
+import re
 import sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 libdir = os.path.join(parentdir, 'lib')
 sys.path.append(libdir)
+#from logHandler import log
+#log.debug(parentdir)
 from keyboard import keyboard
 del sys.path[-1]
 
@@ -29,7 +36,7 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "Edit" and obj.role == controlTypes.Role.EDITABLETEXT:
 			#obj.STABILIZE_DELAY = 0
 			clsList[0:0] = [
-				NVDAObjects.behaviors.Terminal,
+				# NVDAObjects.behaviors.Terminal,
 				NVDAObjects.window.DisplayModelLiveText,
 				NVDAObjects.window.DisplayModelEditableText,
 				]
@@ -54,7 +61,7 @@ class AppModule(appModuleHandler.AppModule):
 			('DbStep', 'dbstep', 'kb:shift+F8'),
 			('DbQuit', 'dbquit', 'kb:shift+escape'),
 			('ClearSound', 'clear sound', 'kb:F7'),
-			('GoToCurrentExecPoint', 'gcep', 'kb:F11'),
+			('GoToCurrentExecPoint', "gcep(evalc('dbstack(''-completenames'')'))", 'kb:F11'),
 		]
 		self.createAllScript_sendCommand()
 		dicGestures = {gesture: SEND_CMD+name for name,cmd,gesture in self.commandTable}
@@ -74,7 +81,7 @@ class AppModule(appModuleHandler.AppModule):
 		inputCore.manager.emulateGesture(keyboardHandler.KeyboardInputGesture.fromName("enter"))
 		
 	def DISABLED_zzz_chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.windowClassName == "Edit" and obj.role == controlTypes.Role.EDITABLETEXT:
+		if obj.windowControlID == 99 and obj.role == controlTypes.Role.EDITABLETEXT:
 			#clsList.insert(0, EnhancedEditField)
 			clsList.insert(0, Terminal)
 
@@ -92,6 +99,24 @@ class AppModule(appModuleHandler.AppModule):
 			scriptName = 'script_' + SEND_CMD + name
 			scriptFun = self._createScript_sendCommand(scriptName, cmd)
 			setattr(self.__class__, scriptName, scriptFun)
+	
+	@script(
+		description="Open the path under review cursor",
+		gesture="kb:nvda+j",
+	)
+	def script_goToFile(self, gesture):
+		info=api.getReviewPosition().copy()
+		info.expand(textInfos.UNIT_LINE)
+		openSourceFile = globalPlugins.ndtt.fileOpener.openSourceFile
+		RE_LINE_WITH_PATH = re.compile(r'(?:File: )?(?P<file>.+\.m)(?: Line: (?P<line>\d+) Column: (?P<col>\d+))?')
+		m = RE_LINE_WITH_PATH.match(info.text.strip())
+		if not m:
+			ui.message('No match found for file name on this line')
+		file = m['file']
+		line = m['line']
+		if line is None:
+			line = 1
+		openSourceFile(file, line)
 	
 AppModule.scriptCategory = _("Matlab")
 
