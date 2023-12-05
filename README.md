@@ -25,6 +25,15 @@ This global plugin creates a command to cycle through the audio output devices.
 This script allows to modify speech parameter while in SayAll without stopping SayAll.
 The commands affected by this feature are the synthesizer ring commands, the command to cycle through punctuation level and thetoggle to report or not CLDR.
 
+### globalPlugins/diffMaker.py
+If you have Git installed on your computer, this script allows you to make a `git diff` between two lines and to get the result in a browsable message.
+Press `NVDA+alt+d` to display a menu allowing to choose a reference (first line) and to make the diff (second line).
+The diff can be done by word or by character.
+
+Note: this script does not work correctly.
+On my computer, it works just after NVDA restart, but after some time of use, it produce an error.
+I need to restart NVDA to have it working again.
+
 ### globalPlugins/findExtended.py
 
 This script removes the dialog box that appears when no more occurrence is found during a search operation.
