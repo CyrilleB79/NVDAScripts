@@ -1,5 +1,5 @@
 # DiffMaker: provide the result of a diff in a browseable message.
-# Copyright (C) 2022-2023 Cyrille Bougot
+# Copyright (C) 2022 Cyrille Bougot
 # This file is covered by the GNU General Public License.
 
 """A script providing diff information in browseable message.
@@ -60,6 +60,7 @@ def diffLine(text1, text2, byCharacter):
 				cmdParams = ['git', 'diff', '-U0', '--word-diff=porcelain', '--minimal', '--no-index', '--', pathF1, pathF2]
 			out = subprocess.run(
 				' '.join(cmdParams),
+				stdin=subprocess.DEVNULL,
 				stdout=fout,
 				stderr=ferr,
 				shell=True,
