@@ -45,9 +45,8 @@ def diffLine(text1, text2, byCharacter):
 		f1.write(text1)
 	with open(pathF2, 'w', encoding='utf8') as f2:
 		f2.write(text2)
-	
-	with open(os.path.join(d.name, 'out.txt'), 'w+') as fout:
-		with open(os.path.join(d.name, 'err.txt'), 'w+') as ferr:
+	with open(os.path.join(d.name, 'out.txt'), 'w+', encoding='utf8') as fout:
+		with open(os.path.join(d.name, 'err.txt'), 'w+', encoding='utf8') as ferr:
 			cmdParams = ['git', 'diff', pathF1, pathF2]
 			# Diff word-by-word
 			cmdParams = ['git', 'diff', '-U0', '--word-diff=plain', '--minimal', '--no-index', '--', pathF1, pathF2]
@@ -64,6 +63,7 @@ def diffLine(text1, text2, byCharacter):
 				stdout=fout,
 				stderr=ferr,
 				shell=True,
+				encoding='utf8',
 			)
 			if out.returncode == 0:
 				return False
@@ -72,13 +72,14 @@ def diffLine(text1, text2, byCharacter):
 			if err:
 				RuntimeError('Error when executing the following command:\n{cmd}\n{err}'.format(cmd=cmdParams, err=err))
 			fout.seek(0)
-			ui.browseableMessage(re.sub(
-				RE_DIFF_HEADER,
-				'',
-				#out.stdout.decode('utf8'),
-				#out.stdout.read(),
-				fout.read()
-			))
+			ui.browseableMessage(
+				re.sub(
+					RE_DIFF_HEADER,
+					'',
+					fout.read(),
+				),
+				"Character difference between two lines" if byCharacter else "Word difference between two lines",
+			)
 			return True
 
 
