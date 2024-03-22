@@ -3,23 +3,23 @@
 # This file is covered by the GNU General Public License.
 
 """A script to check the structure of NVDA's documentation files (either Changes of User Guide).
-This script checks line by line if the locale version matches the English one.
+This script checks line by line if the locale version matches the English one and prints the errors found.
+If no error is found, nothing is printed on the output.
+
 The check of change log and versus French is hard coded in this script.
-But the target language can be manually modified if needed, and only few modifications would be needed to check the User Guide instead of the Change log.
-(anchor to be debugged)
+But the target language and file can be manually modified if needed by modifying the corresponding constants.
 
-To be executed, the script needs to be placed at the same level as the folder containing the screenreaderstranslations checkout, called "SRT".
+To be executed, the script needs to be placed at the same level as the folder containing the screenreaderstranslations checkout, called "SRT" (also modifiable in a  constant).
 """
-
 
 
 import os
 import re
 
-# Parameters to modify manually if needed.
+# Constants to modify manually if needed.
 CHECKOUT_FOLDER_NAME = "SRT"
 LANGUAGE = "fr"
-FILE = "userGuide"  # Either "changes" or "userGuide"
+FILE = "changes"  # Either "changes" or "userGuide"
 
 
 base = os.path.join(CHECKOUT_FOLDER_NAME, LANGUAGE)
@@ -44,7 +44,7 @@ def structDiff(enFile, localeFile):
 	with open(enFile, encoding="utf8") as f1, open(localeFile, encoding="utf8") as f2:
 		for (nLine, (enLine, locLine)) in enumerate(zip(f1, f2)):
 			if nLine == 40:
-				import pdb;pdb.set_trace()
+				#zzz import pdb;pdb.set_trace()
 				pass
 			err = compareLines(enLine, locLine)
 			if err is not None:
@@ -57,7 +57,7 @@ RE_LINE = """
 	^
 	(?P<headingSpaces>[ \t]*(?![ \t]))
 	(
-		((?P<preHeading>=+)\ [^=]+\ (?P=preHeading)(?P<anchor>\[[^]]+\])?)
+		((?P<preHeading>[=+]+)\ .+\ (?P=preHeading)(?P<anchor>\[[^]]+\])?)
 		|(
 			(?P<bullet>[-+]\ *)
 			(.*)
@@ -110,4 +110,3 @@ elif FILE == "userGuide":
 	structDiff(enUgFile, ugFile)
 else:
 	print(f'Unsupported FILE: {FILE}')
-
