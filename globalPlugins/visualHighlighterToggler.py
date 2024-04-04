@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 # visualHighlighterToggler
 # A script to toggle NVDA Visual Highlighter.
-# Copyright (C) 2021 Cyrille Bougot
+# Copyright (C) 2021-2024 Cyrille Bougot
 # This file is covered by the GNU General Public License.
 
 """A script (unassigned by default) to toggle Visual Highlighter.
@@ -9,13 +9,27 @@
 
 import globalPluginHandler
 #import config
-from globalCommands import SCRCAT_VISION
 from scriptHandler import script
-#import logHandler
-import vision
+from logHandler import log
+try:
+	from globalCommands import SCRCAT_VISION
+	import vision
+	incompatible = False
+except ImportError:
+	incompatible = True
+	SCRCAT_VISION = "Dummy"
+	log.debugWarning('GlobalPlugin VisualHighlighterToggler incompatible: No vision framework')
 import ui
 import speech
 
+
+def disableIfIncompatible(c):
+	if incompatible:
+		return globalPluginHandler.GlobalPlugin
+	return c
+
+
+@disableIfIncompatible
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(

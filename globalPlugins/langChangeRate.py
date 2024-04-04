@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 # Language change scripts for NVDA
-# Copyright (C) 2021 Cyrille Bougot
+# Copyright (C) 2021-2024 Cyrille Bougot
 # This file is covered by the GNU General Public License.
 
 """A quick and dirty script allowing to modify the speech rate when a language other than the default language is detected.
@@ -13,14 +13,24 @@ import globalPluginHandler
 import config
 from scriptHandler import script
 from types import MethodType
-import logHandler
+from logHandler import log
 import speech
-from speech.commands import LangChangeCommand, RateCommand
-from speech.types import SpeechSequence
-from speech.priorities import Spri
+try:
+	from speech.commands import LangChangeCommand, RateCommand
+except ImportError:
+	# For older versions such as NVDA 2019.2.1
+	from speech import LangChangeCommand, RateCommand
+# from speech.types import SpeechSequence
+# from speech.priorities import Spri
 
-originalSpeak = speech._manager.speak
-def speakNew(self, speechSequence: SpeechSequence, priority: Spri):
+try:
+	originalSpeak = speech._manager.speak
+	incompatible = False
+except AttributeError:
+	incompatible = True
+	log.debugWarning('GlobalPlugin LangChangeRate incompatible: No speech._manager.speak')
+# def speakNew(self, speechSequence: SpeechSequence, priority: Spri):
+def speakNew(self, speechSequence, priority):
 	autoDialectSwitching = config.conf['speech']['autoDialectSwitching']
 	curLanguage = defaultLanguage = speech.getCurrentLanguage()
 	prevLanguage = None
@@ -48,6 +58,13 @@ def getLangChangeSequence(curLanguage, defaultLanguage):
 	return seq
 
 
+def disableIfIncompatible(c):
+	if incompatible:
+		return globalPluginHandler.GlobalPlugin
+	return c
+
+
+@disableIfIncompatible
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self, *args, **kwargs):

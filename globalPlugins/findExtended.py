@@ -1,5 +1,5 @@
 # Do not open a message box when no more occurrence is found during a search operation.
-# Copyright (C) 2021-2023 Cyrille Bougot
+# Copyright (C) 2021-2024 Cyrille Bougot
 # This file is covered by the GNU General Public License.
 
 """This script removes the dialog box that appears when no more occurrence is found during a search operation.
@@ -12,6 +12,7 @@ import addonHandler
 from cursorManager import CursorManager
 import speech
 import gui
+from logHandler import log
 
 import wx
 
@@ -22,6 +23,7 @@ try:
 except:
 	# Python 2
 	enableFeature = False
+	log.debugWarning('Global plugin Find Extended incompatible: Not supporting Python 2.')
 
 
 # Store original NVDA translation function.
@@ -56,16 +58,17 @@ def newDoFindText(self, text, reverse=False, caseSensitive=False, willSayAllResu
 if enableFeature and len(signature(originalDoFindText).parameters) < 5:
 	# Before NVDA 2020.4 / #11564: disable the feature since the signature of the patched function is different
 	enableFeature = False
+	log.debugWarning('Global plugin Find Extended incompatible: NVDA < 2020.4 - the signature of DoFindText is different.')
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	
 	def __init__(self, *args, **kw):
-		super().__init__(*args, **kw)
+		super(GlobalPlugin, self).__init__(*args, **kw)
 		if enableFeature:
 			CursorManager.doFindText = newDoFindText
 		
 	def terminate(self):
 		if enableFeature:
 			CursorManager.doFindText = originalDoFindText
-		super().terminate()
+		super(GlobalPlugin, self).terminate()
