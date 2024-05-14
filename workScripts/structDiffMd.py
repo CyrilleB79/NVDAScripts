@@ -26,6 +26,8 @@ FILE = "userGuide"  # Either "changes" or "userGuide"
 # the change log (French)
 CHECK_TAILING_SPACES = False
 
+CHECK_CODE_FORMATTING = True
+
 
 base = os.path.join(CHECKOUT_FOLDER_NAME, LANGUAGE)
 chgFolder = os.path.join(base, 'changes-newRevisions')
@@ -53,7 +55,13 @@ def structDiff(enFile, localeFile):
 				print(f'Line {nLine+1}: {err}')
 				print(f'English = {repr(enLine)}')
 				print(f'Locale = {repr(locLine)}')
+			err = compareLineContents(enLine, locLine)
+			if err is not None:
+				print(f'Line {nLine+1}: {err}')
+				print(f'English = {repr(enLine)}')
+				print(f'Locale = {repr(locLine)}')
 
+# A regexp matching any line of the file
 RE_LINE = """
 	^
 	(  # Tags
@@ -71,16 +79,16 @@ RE_LINE = """
 		(?P<headingSpaces>[ \t]*(?![ \t]))
 		(
 			# Headings
-			((?P<preHeading>[#]+)\ .+(?P<anchor>\ \{[^}]+\})?)
-			# Bullet items in list
+			((?P<preHeading>[#]+)\ [^{]+(?P<anchor>\ \{[^}]+\})?)
+			# Bullet items in list: begins with "* " or "1. "
 			|(
-				(?P<bullet>\*\ )
+				(?P<bullet>(\*|(1\.))\ )
 				(.+)
 			)
 			# Table row
-			|((?P<tableFirst>\|)(?P<tableCells>([^|]*\|)+))
-			# Other text
-			|(?P<normalText>[^#|*<].*)
+			|(\|(?P<tableCells>([^|]*\|)+))
+			# Other text: do not begin with "#", "|", "*", "<" or "1. ".
+			|(?P<normalText>([^#|*<1]|(1(?!\.\ ))).*)
 		)
 		# Blank at the end of the line
 		(?P<tailingSpaces>(?<![ \t])[ \t]*)
@@ -88,6 +96,10 @@ RE_LINE = """
 	$
 """
 RE_LINE = re.compile(RE_LINE, re.VERBOSE)
+
+# A regexp matching an link to an anchor in the document.
+RE_ANCHOR_LINK = re.compile(r'\[[^]]+\]\(#(?P<anchor>[^)]+)\)')
+RE_CODE_FORMATTING_DELIMITER = re.compile(r'(?<!`)`(?!`)')
 
 def compareLines(l1, l2):
 	"""Compare the structure of two lines and returns an appropriate error message if a difference is found.
@@ -104,22 +116,40 @@ def compareLines(l1, l2):
 	if m1['headingSpaces'] != m2['headingSpaces']:
 		return 'No same heading spaces'
 	if m1['preHeading'] != m2['preHeading']:
-		return 'No same pre-heading marker'
+		return 'No same heading level'
 	if m1['anchor'] != m2['anchor']:
 		return 'No same anchor'
-		
 	if m1['bullet'] != m2['bullet']:
-		return 'No same bullet'
-	if m1['tableFirst'] != m2['tableFirst']:
-		return 'No same table first'
+		return f'''No same bullet ("{m1['bullet']}" / "{m2['bullet']}")'''
 	nPipe1 = m1['tableCells'].count('|') if m1['tableCells'] else 0
 	nPipe2 = m2['tableCells'].count('|') if m2['tableCells'] else 0
 	if nPipe1 != nPipe2:
 		return f'No same table celll number ({nPipe1} / {nPipe2})'
 	if CHECK_TAILING_SPACES and m1['tailingSpaces'] != m2['tailingSpaces']:
-		return 'No same tailing spaces'
+		return 'No same blank characters at the end of the line'
 	
 	return None
+
+
+def compareLineContents(l1, l2):
+	"""Compare the content of two lines and returns an appropriate error message if a difference is found.
+	The content being compared is:
+	- the anchor links
+	- the presence of code formatting
+	"""
+	if l1.endswith('\n'): l1 = l1[:-1]	
+	if l2.endswith('\n'): l2 = l2[:-1]	
+	f1 = RE_ANCHOR_LINK.findall(l1)
+	f2 = RE_ANCHOR_LINK.findall(l2)
+	if set(f1) != set(f2):
+		return 'No same anchor(s)'
+	if CHECK_CODE_FORMATTING:
+		n1 = len(RE_CODE_FORMATTING_DELIMITER.findall(l1))
+		n2 = len(RE_CODE_FORMATTING_DELIMITER.findall(l2))
+		if n1 != n2:
+			return f'No same number of code formatting delimiters (`): {n1} / {n2}'
+	return None
+
 
 if FILE == "changes":
 	enChgFile = os.path.join(findLatestFolder(chgFolder), chgFileName)
