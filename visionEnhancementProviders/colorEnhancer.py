@@ -1,7 +1,7 @@
 # A part of NonVisual Desktop Access (NVDA)
 # This file is covered by the GNU General Public License.
 # See the file COPYING for more details.
-# Copyright (C) 2020 NV Access Limited, Cyrille Bougot
+# Copyright (C) 2020-2025 NV Access Limited, Cyrille Bougot
 
 """Color enhancer implementation based on the windows magnification API.
 This implementation only works on Windows 8 and above.
@@ -22,32 +22,69 @@ from typing import Optional, Type
 import nvwave
 
 # Import Magnification API stuff from screenCurtain; to be moved in a more generic module.
-from visionEnhancementProviders.screenCurtain import MAGCOLOREFFECT, Magnification
+try:
+	from winBindings.magnification import MAGCOLOREFFECT
+	from winBindings import magnification as Magnification
+except ImportError:
+	from visionEnhancementProviders.screenCurtain import MAGCOLOREFFECT, Magnification
 
 
 # homogeneous matrix for a 4-space transformation (red, green, blue, opacity).
 # https://docs.microsoft.com/en-gb/windows/win32/gdiplus/-gdiplus-using-a-color-matrix-to-transform-a-single-color-use
 
-TRANSFORM_INVERT = MAGCOLOREFFECT()
-for i in range(3):
-	TRANSFORM_INVERT.transform[i][i] = -1.0
-	TRANSFORM_INVERT.transform[4][i] = 1.0
-TRANSFORM_INVERT.transform[3][3] = 1.0
-TRANSFORM_INVERT.transform[4][4] = 1.0
-
-TRANSFORM_TEST = MAGCOLOREFFECT()
-mat = [
-	[-0.3, -0.3, 0.0, 0.0, 0.0],
-	[-0.3, -0.3, 0.0, 0.0, 0.0],
-	[-0.3, -0.3, 0.0, 0.0, 0.0],
-	[0.0, 0.0, 0.0, 1.0, 0.0],
-	[1.0, 1.0, 0.0, 0.0, 1.0],
-]
-for i in range(5):
-	for j in range(5):
-		TRANSFORM_TEST.transform[i][j] = mat[i][j]
+def createMagColorEffect(mat):
+	effect = MAGCOLOREFFECT()
+	for i in range(5):
+		for j in range(5):
+			effect.transform[i][j] = mat[i][j]
+	return effect
 
 
+dicColorEffects = {
+	"inverseVideo": [
+		[-1.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, -1.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, -1.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 1.0, 0.0],
+		[1.0, 1.0, 1.0, 0.0, 1.0],
+	],
+	#zzz To be changed: for now, copied inverse video
+	"inverseBrightness": [
+		[-1.0, 0.0, 0.0, 0.0, 0.0],
+		[0.0, -1.0, 0.0, 0.0, 0.0],
+		[0.0, 0.0, -1.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 1.0, 0.0],
+		[1.0, 1.0, 1.0, 0.0, 1.0],
+	],
+	"blackOnWhite": [
+		[0.33, 0.33, 0.33, 0.0, 0.0],
+		[0.33, 0.33, 0.33, 0.0, 0.0],
+		[0.33, 0.33, 0.33, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 1.0, 0.0],
+		[0.0, 0.0, 0.0, 0.0, 1.0],
+	],
+	"whiteOnBlack": [
+		[-0.33, -0.33, -0.33, 0.0, 0.0],
+		[-0.33, -0.33, -0.33, 0.0, 0.0],
+		[-0.33, -0.33, -0.33, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 1.0, 0.0],
+		[1.0, 1.0, 1.0, 0.0, 1.0],
+	],
+	"yellowOnBlack": [
+		[-0.33, -0.33, 0.0, 0.0, 0.0],
+		[-0.33, -0.33, 0.0, 0.0, 0.0],
+		[-0.33, -0.33, 0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 1.0, 0.0],
+		[1.0, 1.0, 0.0, 0.0, 1.0],
+	],
+	"yellowOnBlue": [
+		[-0.33, -0.33, 0.2, 0.0, 0.0],
+		[-0.33, -0.33, 0.2, 0.0, 0.0],
+		[-0.33, -0.33, 0.2, 0.0, 0.0],
+		[0.0, 0.0, 0.0, 1.0, 0.0],
+		[1.0, 1.0, 0.0, 0.0, 1.0],
+	],
+}
 
 # Translators: Name for a vision enhancement provider that modifies the screen colors.
 colorEnhancerTranslatedName = _("Color Enhancer")
@@ -132,27 +169,11 @@ class ColorEnhancerGuiPanel(
 		self.SetSizer(self.mainSizer)
 
 	def getSettings(self) -> ColorEnhancerSettings:
-		#zzz diff with highlighter
 		return ColorEnhancerProvider.getSettings()
 
 	def makeSettings(self, sizer: wx.BoxSizer):
 		self.updateDriverSettings()
-		#zzz to check
 		self.Bind(wx.EVT_CHECKBOX, self._onCheckEvent)
-		#zzz yyy added
-		"""Evt to test
-		'EVT_CHOICE',
-		'EVT_COMBOBOX',
-		'EVT_COMBOBOX_CLOSEUP',
-		'EVT_COMBOBOX_DROPDOWN',
-		
-		'EVT_LISTBOX',
-		'EVT_LISTBOX_DCLICK', 
-		'EVT_LIST_ITEM_ACTIVATED', 
-		'EVT_LIST_ITEM_FOCUSED', 
-		'EVT_LIST_ITEM_SELECTED', 
-		
-		"""
 		self.Bind(wx.EVT_CHOICE, self._onChoiceEvent)
 
 	def onPanelActivated(self):
@@ -160,12 +181,10 @@ class ColorEnhancerGuiPanel(
 		self.lastControl = self._enabledCheckbox
 
 	def _onChoiceEvent(self, evt: wx.CommandEvent):
-		import globalVars
-		globalVars.dbg = self._enabledCheckbox
 		if not self._enabledCheckbox.GetValue():
 			return
-		from tones import beep
-		beep(440, 200)
+		if evt.GetEventObject() is self.colorEffectList:
+			self._ensureColorEffectChoice(evt.GetString())
 		
 		
 	def _onCheckEvent(self, evt: wx.CommandEvent):
@@ -174,6 +193,17 @@ class ColorEnhancerGuiPanel(
 		if evt.GetEventObject() is self._enabledCheckbox:
 			self._ensureEnableState(evt.IsChecked())
 
+	def _ensureColorEffectChoice(self, colorEffectString: str):
+		provider = self._providerControl.getProviderInstance()
+		if provider:
+			#zzz check if next line required
+			#yyy self.updateDriverSettings()
+			colorEffect = self.getSettings().colorEffect
+			#import globalVars as gv
+			#gv.dbg = settings
+			#colorEffect = [v for (k,v) in self.availableColoreffects.items() if v.displayName == colorEffectString][0]
+			provider.setColorEffect(colorEffect)
+	
 	def _ensureEnableState(self, shouldBeEnabled: bool):
 		currentlyEnabled = bool(self._providerControl.getProviderInstance())
 		if shouldBeEnabled and not currentlyEnabled:
@@ -207,8 +237,7 @@ class ColorEnhancerProvider(providerBase.VisionEnhancementProvider):
 		log.debug(f"Starting ColorEnhancer")
 		Magnification.MagInitialize()
 		try:
-			#Magnification.MagSetFullscreenColorEffect(TRANSFORM_INVERT)
-			Magnification.MagSetFullscreenColorEffect(TRANSFORM_TEST)
+			self.setColorEffect(self.getSettings().colorEffect)
 		except Exception as e:
 			Magnification.MagUninitialize()
 			raise e
@@ -220,6 +249,9 @@ class ColorEnhancerProvider(providerBase.VisionEnhancementProvider):
 		finally:
 			Magnification.MagUninitialize()
 
+	def setColorEffect(self, colorEffect):
+		Magnification.MagSetFullscreenColorEffect(createMagColorEffect(dicColorEffects[colorEffect]))
+		
 	def registerEventExtensionPoints(self, extensionPoints):
 		# The color enhancer isn't interested in any events
 		pass
