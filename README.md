@@ -46,6 +46,15 @@ To configure the modification factor, e.g. -40%, type in the console:
 `config.conf['paramChangeUponLangChange']['rateChange'] = -40`
 Not tested with rate boost on.
 
+### globalPlugins/layeredCommands
+
+This package allow to access native NVDA commands with layered gestures.
+More specifically for now, it allow to access all NVDA Magnifier commands through a layered gesture: `NVDA+W` followed by another gesture.
+Press `NVDA+W,H` to see the list of available gestures.
+Given it applies to Magnifier commands, it is working with NVDA 2026.2 or later.
+
+In the future, the idea would be to provide a more general package allowing the user to create themselves one or more layers, define which command they put in them and with which gesture.
+
 ### globalPlugins/ocrPdf.py
 
 This script allows to OCR an opened PDF in Adobe Reader with MS word.
