@@ -95,6 +95,28 @@ This plugin aims to answer the need related to communication between a mute pers
 A prototype in alpha stage to play with vision enhancement providers and Magnification API.
 This provider allows to customize the screen color transformation.
 
+## workScripts
+
+A folder containing various work scripts.
+
+### sync_nvda_portable.py
+
+A script to synchronize an NVDA source checkout with runtime files from an NVDA portable copy.
+This allows you to run NVDA from source without a working Visual Studio installation.
+
+### undocumentedShortcuts.py
+
+A script to check NVDA's shortcuts between doc and code.
+
+### Document structure comparison
+
+Scripts to compare structure of English and translated documentation:
+* `structDiffMd.py`; note: there is porbably one now in NVDA source itself.
+* `structDiffT2t.py`, for the old t2t format (was used during transition from t2t to md)
+
+`
+
+
 ## Configuration files
 
 ### symbols-fr.dic
