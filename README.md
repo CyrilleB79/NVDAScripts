@@ -111,8 +111,9 @@ A script to check NVDA's shortcuts between doc and code.
 ### Document structure comparison
 
 Scripts to compare structure of English and translated documentation:
-* `structDiffMd.py`; note: there is porbably one now in NVDA source itself.
+* `structDiffMd.py`: a script to compare English and translated .md files of NVDA documentation. Note: there is porbably one now in NVDA source itself.
 * `structDiffT2t.py`, for the old t2t format (was used during transition from t2t to md)
+* `addonDocStructDiffMd.py`; script to compare English and translated documentation files for an add-on.
 
 `
 
