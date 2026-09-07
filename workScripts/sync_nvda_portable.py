@@ -40,6 +40,17 @@ def copyFile(srcPath: str, dstPath: str, dryRun: bool) -> None:
 	shutil.copy2(srcPath, dstPath)
 
 
+def removeFile(srcPath: str, dryRun: bool) -> None:
+	"""
+	Remove a file.
+	"""
+	if dryRun:
+		print(f"[DRY RUN] Remove file: {srcPath}")
+		return
+
+	os.remove(srcPath)
+
+
 def copyDirReplace(srcPath: str, dstPath: str, dryRun: bool) -> None:
 	"""
 	Replace a directory completely (destructive).
@@ -178,12 +189,13 @@ def syncPortableArtifacts(portableNvdaPath: str, repoRootPath: str, dryRun: bool
 		srcPath = os.path.join(portableNvdaPath, itemName)
 
 		if os.path.isfile(srcPath):
-			if itemName.endswith(".dll") or itemName.endswith(".pyd"):
+			if itemName.endswith(".dll"):
 				copyFile(srcPath, os.path.join(sourcePath, itemName), dryRun)
 
 		elif os.path.isdir(srcPath):
 			if itemName == "documentation":
-				copyDirReplace(srcPath, os.path.join(repoRootPath, "user_docs"), dryRun)
+				copyDirMerge(srcPath, os.path.join(repoRootPath, "user_docs"), dryRun)
+				removeFile(os.path.join(repoRootPath, "user_docs", "copying.txt"), dryRun)
 
 			elif itemName == "locale":
 				copyDirReplace(srcPath, os.path.join(sourcePath, "locale"), dryRun)
