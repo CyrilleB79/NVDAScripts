@@ -74,11 +74,13 @@ def copyDirReplace(srcPath: str, dstPath: str, dryRun: bool, verbose: bool) -> N
 	shutil.copytree(srcPath, dstPath)
 
 
-def copyDirMerge(srcPath: str, dstPath: str, dryRun: bool, verbose: bool) -> None:
+def copyDirMerge(srcPath: str, dstPath: str, dryRun: bool, verbose: bool, excludePathList: list[str] | None = None) -> None:
 	"""
 	Copy directory contents without deleting existing files.
 	Existing files are overwritten, missing files are preserved.
 	"""
+	if not excludePathList:
+		excludePathList =[]
 	for root, dirs, files in os.walk(srcPath):
 		relativeRoot = os.path.relpath(root, srcPath)
 
@@ -89,6 +91,8 @@ def copyDirMerge(srcPath: str, dstPath: str, dryRun: bool, verbose: bool) -> Non
 				relativePath = fileName
 			else:
 				relativePath = os.path.join(relativeRoot, fileName)
+			if relativePath in excludePathList:
+				continue
 
 			dstFile = os.path.join(dstPath, relativePath)
 
@@ -212,7 +216,13 @@ def syncPortableArtifacts(portableNvdaPath: str, repoRootPath: str, dryRun: bool
 
 		elif os.path.isdir(srcPath):
 			if itemName == "documentation":
-				copyDirMerge(srcPath, os.path.join(repoRootPath, "user_docs"), dryRun, verbose)
+				copyDirMerge(
+					srcPath,
+					os.path.join(repoRootPath, "user_docs"),
+					dryRun,
+					verbose,
+					excludePathList=["copying.txt"],
+				)
 
 			elif itemName == "locale":
 				copyDirMerge(srcPath, os.path.join(sourcePath, "locale"), dryRun, verbose)
@@ -248,17 +258,19 @@ def parseArguments() -> argparse.Namespace:
 
 def main() -> None:
 	args = parseArguments()
+	# Force verbose also for dry run to be useful
+	verbose = args.verbose or args.dry_run, 
 
 	validatePortableLayout(args.portableNvdaPath)
 
-	copyVersionedLibFolder(args.portableNvdaPath, args.repoRootPath, args.dry_run, args.verbose)
-	copyComInterfaces(args.portableNvdaPath, args.repoRootPath, args.dry_run, args.verbose)
-	copyLouisFolder(args.portableNvdaPath, args.repoRootPath, args.dry_run, args.verbose)
-	copyLouisInit(args.portableNvdaPath, args.repoRootPath, args.dry_run, args.verbose)
-	copyBrailleDisplayDrivers(args.portableNvdaPath, args.repoRootPath, args.dry_run, args.verbose)
-	copySynthDrivers(args.portableNvdaPath, args.repoRootPath, args.dry_run, args.verbose)
+	copyVersionedLibFolder(args.portableNvdaPath, args.repoRootPath, args.dry_run, verbose)
+	copyComInterfaces(args.portableNvdaPath, args.repoRootPath, args.dry_run, verbose)
+	copyLouisFolder(args.portableNvdaPath, args.repoRootPath, args.dry_run, verbose)
+	copyLouisInit(args.portableNvdaPath, args.repoRootPath, args.dry_run, verbose)
+	copyBrailleDisplayDrivers(args.portableNvdaPath, args.repoRootPath, args.dry_run, verbose)
+	copySynthDrivers(args.portableNvdaPath, args.repoRootPath, args.dry_run, verbose)
 
-	syncPortableArtifacts(args.portableNvdaPath, args.repoRootPath, args.dry_run, args.verbose)
+	syncPortableArtifacts(args.portableNvdaPath, args.repoRootPath, args.dry_run, verbose)
 
 
 if __name__ == "__main__":
